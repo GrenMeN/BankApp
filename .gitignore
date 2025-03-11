@@ -1,0 +1,19 @@
+# User-specific files
+bin/
+obj/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+# .vscode/
+
+# DotNet Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Node.js
+node_modules/
