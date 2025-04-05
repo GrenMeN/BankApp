@@ -1,0 +1,10 @@
+{
+  "ConnectionProjectName": "BankApp",
+  "ConnectionName": "BankApp",
+  "FluentMigrationToolPath": "%USERPROFILE%\\.nuget\\packages\\fluentmigrator.console\\7.1.0\\tools\\net48\\any\\Migrate.exe",
+  "DbProvider": "SqlServer",
+  "DbProviderHelpUrl": "https://fluentmigrator.github.io/articles/runners/runner-console.html#--provider---dbtype---dbvalue-required",
+  "MigrationFolder": "Migrations",
+  "ScriptsFolder": "Scripts",
+  "TimeFormat": "yyyyMMddHHmmss"
+}

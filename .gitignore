@@ -17,3 +17,6 @@ artifacts/
 
 # Node.js
 node_modules/
+
+# Visual Studio
+.vs
