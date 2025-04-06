@@ -17,6 +17,7 @@ internal class Program
     const string EXIT = "Exit";
     const string LOG_OUT = "Log out";
     const string SHOW_ALL = "[[Show all]]";
+
     private static void Main(string[] args)
     {
         AnsiConsole.Status()
@@ -52,7 +53,7 @@ internal class Program
                 continue;
             }
 
-            var (userPrompt, typePrompt, showBalancePrompt) = LoadSelectPromts(account);
+            var (userPrompt, typePrompt, showBalancePrompt) = LoadSelectPrompts(account);
 
             bool userLoggedIn = true;
             while (userLoggedIn)
@@ -87,8 +88,10 @@ internal class Program
         if (account.Type == AccountType.Manager)
         {
             AnsiConsole.MarkupLine("[red]You are not allowed to transfer money![/]");
+            return;
         }
-        else if (account.Type == AccountType.User)
+
+        if (account.Type == AccountType.User)
         {
             var userToTransferOptions = _db.Account
                 .Where("Type", AccountType.User)
@@ -109,7 +112,6 @@ internal class Program
             {
                 TransferMoney(account, selectedUser, amount);
             }
-
         }
         else if (account.Type == AccountType.Administrator)
         {
@@ -120,7 +122,7 @@ internal class Program
             var userFromTransferNumber = AnsiConsole.Prompt(new SelectionPrompt<string>()
                 .Title("Select user to transfer money from:")
                 .AddChoices(allUsers));
-            var usersToTransferOptions = allUsers.Where(x => x != userFromTransferNumber);
+            var usersToTransferOptions = allUsers.Where(x => x != userFromTransferNumber).ToList();
             if (!usersToTransferOptions.Any())
             {
                 AnsiConsole.MarkupLine("[red]No users to transfer money to![/]");
@@ -219,13 +221,12 @@ internal class Program
                 AnsiConsole.MarkupLine($"Balance of {selectedAccountData?.Number}: [green]{selectedAccountData?.Balance}$[/]");
                 Console.ReadLine();
             }
-       }
+        }
     }
-
 
     private static (SelectionPrompt<string> userPrompt,
         SelectionPrompt<string> typePrompt,
-        SelectionPrompt<string> showBalancePrompt) LoadSelectPromts(Account account)
+        SelectionPrompt<string> showBalancePrompt) LoadSelectPrompts(Account account)
     {
         var userOptions = new List<string> { SHOW_BALANCE };
         List<string> showBalanceOptions = new List<string>();
@@ -241,7 +242,7 @@ internal class Program
                 .ToList()
                 .ForEach(x => showBalanceOptions.Add(x));
         }
-        if(account.Type != AccountType.Manager)
+        if (account.Type != AccountType.Manager)
         {
             userOptions.Add(TRANSFER_MONEY);
         }
@@ -305,8 +306,7 @@ internal class Program
             accountToCreate.Balance.ToString(),
             accountToCreate.PhoneNumber.ToString());
         AnsiConsole.Write(table);
-        var confirm = AnsiConsole.Confirm("Do you want to create this account?" +
-            "");
+        var confirm = AnsiConsole.Confirm("Do you want to create this account?");
         if (confirm)
         {
             _db.Account.Insert(accountToCreate);
