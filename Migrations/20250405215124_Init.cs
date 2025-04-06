@@ -8,8 +8,7 @@ namespace BankApp
         public override void Up()
         {
             Create.Table("Account")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("Number").AsString().NotNullable()
+                .WithColumn("Number").AsString().PrimaryKey()
                 .WithColumn("Type").AsInt32().NotNullable()
                 .WithColumn("Balance").AsDecimal().NotNullable()
                 .WithColumn("PhoneNumber").AsString().NotNullable();
