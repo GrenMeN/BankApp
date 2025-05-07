@@ -21,3 +21,7 @@ A small app for studying purposes.
 ## Configuration
 
 The application uses a JSON configuration file `appsettings.json` to store the database connection string.
+
+## First start up
+
+By default at first start up of app migrations will create the user with all privileges with the account number `admin`.
